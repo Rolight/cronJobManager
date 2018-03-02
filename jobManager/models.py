@@ -12,7 +12,3 @@ class Job(models.Model):
     run_at = models.DateTimeField()
     # job run every specific seconds
     run_every = models.IntegerField(default=24 * 3600)
-    notification_method = models.CharField(max_length=64, default='email', choices=(
-        ('email', 'email'),
-    ))
-    notification_args = models.TextField()
