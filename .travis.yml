@@ -1,0 +1,9 @@
+language: python
+install:
+    - pip install -r requirements.txt
+    - cp cronjobManager/settings_template.py cronjobManager/settings.py
+script:
+    - python manager test
+
+
+
