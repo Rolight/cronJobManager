@@ -3,7 +3,7 @@ import logging
 from django.core.mail import send_mail
 from django.conf import settings
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(settings.LOGGER_NAME)
 
 
 def email(receiver, subject, message, html_message=None):
