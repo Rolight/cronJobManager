@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -78,7 +79,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'OPTIONS': {
+            'timeout': 20,
+        }
+    },
 }
 
 
@@ -121,9 +125,33 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # email settings
-# TODO: You should change it
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.example.com'
 MAIL_PORT = 25
-EMAIL_HOST_USER = 'example_user'
-EMAIL_HOST_PASSWORD = 'example_password'
+EMAIL_HOST_USER = 'example@aaa.com'
+EMAIL_HOST_PASSWORD = 'ecsdjioacjsoiacjiosajd'
+
+ADMIN_EMAIL = 'example@aaa.com'
+
+LOGGER_NAME = 'django'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}
+
+JOB_SCRIPT_PATH = 'jobManager.jobs.{module_name}'
+JOB_PRIORIRY = 3
+JOB_TICK_TOCK = 10
