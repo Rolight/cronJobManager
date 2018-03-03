@@ -85,7 +85,6 @@ class normal_job:
 class fake_jobs_producer:
 
     def import_module(job_name):
-        print('job_name: ', job_name)
         job_lists = {
             settings.JOB_SCRIPT_PATH.format(
                 module_name='infinite_job'): infinite_delay_job,
@@ -139,7 +138,6 @@ class CoreTest(TransactionTestCase):
         test_thread.start()
         time.sleep(10)
         normal = models.Job.objects.get(id=normal.id)
-        print(normal.log)
         self.assertTrue(len(normal.log_lines) > 0)
         scheduler.stopped = True
         test_thread.join()

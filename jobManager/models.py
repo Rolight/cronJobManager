@@ -1,6 +1,7 @@
 import datetime
 
 from django.db import models
+from django.conf import settings
 
 
 class Job(models.Model):
@@ -37,7 +38,10 @@ class Job(models.Model):
         today = datetime.date.today()
         run_at = self.run_at.replace(
             year=today.year, month=today.month, day=today.day)
-        return max(run_at.timestamp() - datetime.datetime.now().timestamp(), 0)
+        delay_seconds = run_at.timestamp() - datetime.datetime.now().timestamp()
+        if not settings.TESTING and delay_seconds < 0:
+            delay_seconds += 24 * 3600
+        return delay_seconds
 
     @property
     def log_lines(self):
