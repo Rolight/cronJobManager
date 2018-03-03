@@ -9,7 +9,7 @@ from django.conf import settings
 from jobManager.postman import email
 
 
-def run(*args, **kwargs):
+def run(job=None, *args, **kwargs):
     receiver = settings.ADMIN_EMAIL
     email(
         receiver,
